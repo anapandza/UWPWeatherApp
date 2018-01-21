@@ -1,4 +1,4 @@
-# UWPWeatherApp
+# UWP Weather App
 Simple desktop weather aplication in UWP.
 
 ## Demo
