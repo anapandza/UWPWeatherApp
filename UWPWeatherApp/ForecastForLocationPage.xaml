@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="UWPWeatherApp.ForecastForLocationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPWeatherApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="20,20,0,0">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Name="EnterLatitude" Text="Enter latitude: " Margin="10,10,10,0" />
+                <TextBlock Name="EnterLongitude" Text="Enter longitude: " Margin="10,10,10,0" />
+            </StackPanel>
+            <StackPanel MinWidth="100">
+                <TextBox Name="Latitude" PlaceholderText="e.g. 43.51" />
+                <TextBox Name="Longitude" PlaceholderText="e.g. 16.41" Margin="0,5,0,0"/>
+            </StackPanel>
+            <Button Name="GetForecast" Content="Get Forecast" Margin="10,10,0,0" Click="GetForecast_Click"/>
+        </StackPanel>
+
+        <RelativePanel Name ="City_CurrentTemperature_Icon"  Margin="10,10,0,20">
+            <TextBlock Name="City" FontSize="46" Margin="0,0,40,0" VerticalAlignment="Center" FontWeight="SemiLight" RelativePanel.AlignLeftWithPanel="True" Text="{Binding city.name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Name="CurrentTemperature" FontSize="46" VerticalAlignment="Center" FontWeight="SemiLight" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.RightOf="City" Text="{Binding list[0].main.temp, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Name="CelsiusSign" FontSize="46" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="SemiLight" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.RightOf="CurrentTemperature"/>
+            <Image Name="CurrentIcon" Width="60" Height="60" Margin="30,0,30,0" RelativePanel.RightOf="CelsiusSign"/>
+        </RelativePanel>
+
+        <StackPanel Name="Forecast" Orientation="Horizontal" Margin="10,0,10,0" HorizontalAlignment="Left">
+            <StackPanel Name="Time" Width="Auto" Margin="0,0,10,0">
+                <TextBlock Name="Time0" HorizontalAlignment="Center" Margin="0,0,0,10" FontWeight="Medium"/>
+                <TextBlock Name="Time1" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[4].dt_txt, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Time2" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[8].dt_txt, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Time3" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[12].dt_txt, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Time4" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[16].dt_txt, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Name="Temperature" Width="Auto" Margin="0,0,10,0">
+                <TextBlock Name="Temperature0" HorizontalAlignment="Center" Margin="0,0,0,10" FontWeight="Medium"/>
+                <TextBlock Name="Temperature1" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[4].main.temp, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Temperature2" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[8].main.temp, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Temperature3" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[12].main.temp, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Temperature4" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[16].main.temp, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Name="Description" Width="Auto" Margin="0,0,10,0">
+                <TextBlock Name="Description0" HorizontalAlignment="Center" Margin="0,0,0,10" FontWeight="Medium"/>
+                <TextBlock Name="Description1" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[4].weather[0].description, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Description2" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[8].weather[0].description, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Description3" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[12].weather[0].description, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Name="Description4" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding list[16].weather[0].description, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Name="Icon" Width="Auto" Margin="0,0,10,0">
+                <TextBlock Name="Icon0" HorizontalAlignment="Center" FontWeight="Medium"/>
+                <Image Name="Icon1" Width="30" Height="30" Margin="0,10,0,0"/>
+                <Image Name="Icon2" Width="30" Height="30"/>
+                <Image Name="Icon3" Width="30" Height="30"/>
+                <Image Name="Icon4" Width="30" Height="30"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Page>
