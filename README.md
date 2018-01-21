@@ -1,2 +1,2 @@
 # UWPWeatherApp
-Simple weather aplication in UWP
+Simple weather aplication in UWP.
