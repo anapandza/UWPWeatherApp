@@ -39,9 +39,9 @@ namespace UWPWeatherApp
             try
             {
 
-                // get position funkcija u klasi location manager dohvaca geolokaciju koja sadrzi koordinate trenutne lokacije uredaja
+                // get position in class location manager fetches geolocation which contains current coordinates of device
                 var currentPosition = await LocationManager.GetPosition();
-                //dohvaca root object u temp datoteku
+                //fetches root object in temp variable
                 temp = await WeatherAPI.GetWeatherWithCoordinates(currentPosition.Coordinate.Point.Position.Latitude, currentPosition.Coordinate.Point.Position.Longitude);
             }
             catch
@@ -49,9 +49,9 @@ namespace UWPWeatherApp
                 temp = await WeatherAPI.GetWeatherWithCityName("Zagreb");
             }
 
-            //binding za sve varijable
-            this.Weather.city = temp.city; //binding klasu city za dohvacanje imena unutar te klase
-            this.Weather.list = temp.list; //binding liste za pristup podacima unutar liste
+            
+            this.Weather.city = temp.city; 
+            this.Weather.list = temp.list; 
 
             for (int i = 0; i < 17; i += 4)
             {
