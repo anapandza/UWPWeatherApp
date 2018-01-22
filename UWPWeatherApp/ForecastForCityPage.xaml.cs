@@ -40,9 +40,9 @@ namespace UWPWeatherApp
                 var city = CityName.Text;
 
                 RootObject temp = await WeatherAPI.GetWeatherWithCityName(city);
-                //binding za sve varijable
-                this.Weather.city = temp.city; //binding klasu city za dohvacanje imena unutar te klase
-                this.Weather.list = temp.list; //binding liste za pristup podacima unutar liste
+                //binding for all variables
+                this.Weather.city = temp.city; //binding class city for fetching names inside that class
+                this.Weather.list = temp.list; //binding lists for data access inside of the list
 
                 for (int i = 0; i < 17; i += 4)
                 {
