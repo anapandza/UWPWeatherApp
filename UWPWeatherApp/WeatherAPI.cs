@@ -11,42 +11,41 @@ using System.Threading.Tasks;
 
 namespace UWPWeatherApp
 {
-    // klasa u kojoj se dohvaca JSON sa web servisa https://openweathermap.org pomocu APIja 
+    // gets JSON from web servis https://openweathermap.org with API 
     public class WeatherAPI
     {
-        //dohvaca se vrijeme pomocu koordinata lat i lon
-        //zbog toga sto je metoda asinkrona return objekt mora biti tipa task koji govori da kad je sve dovrseno ono sto se vraca bit ce rootobject
+        //gets weather with coordinates
+        //because of async method return object is type task which says that once everything is done it will return root object
         public async static Task<RootObject> GetWeatherWithCoordinates(double lat, double lon)
         {
-            //nova istanca klase za slanje HTTP zahtjeva i primanje HTTP odgovora od resursa identificiranog URI-jem
+            //new istance of class for sending HTTP requests and receaving HTTP replys from resource identifyed by URI
             var http = new HttpClient();
 
-            // uri kojem saljemo zahtjev
+            // URI to which request is sent
             var uri = String.Format("http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&APPID=733d2c527b09b615dc30f6059bf4ac64&units=metric", lat, lon);
 
-            //getAsync salje asinkroni zahtjev uriju i vraca odgovor na taj zahtjev 
-            //await osigurava da se ceka rezultat 
+            //getAsync sends asyncronus request to URI and gets reply for that request 
+            //await ensures that result is waites for 
             var response = await http.GetAsync(uri);
 
-            //sadrzaj responsea se asinkrono sprema kao string format
-            //u ovom slucaju to je JSON format kojeg treba deserijalizirati kako bi se objekti mogli koristiti u aplikaciji 
+            //content of response is saved as string
+            //in this case ids JSON which has to be deserialized so that objects could be used in app 
             var result = await response.Content.ReadAsStringAsync();
 
-            //nova istanca klase koja sluzi za serilizaciju ili deserilizaciju JSON formata u tip objekta koji se koristi 
-            //u ovom slucaju RootObject koji je povezan sa svim ostalim objektima
+            //new istance of class which serilizes or deserilizes JSON into type of used object 
+            //in this case its RootObject which is connected to all other objects
             var serializer = new DataContractJsonSerializer(typeof(RootObject));
 
-            // sve podatke koji su vraceni u responsu tj. spremljeni kao string u result se spremaju se u memory stream
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(result));
 
-            //ReadObject cita stream u JSON formatu i vraca deserijalizirani objekt koji nam treba
+            //ReadObject reads stream in JSON and returns deserilized object
             var data = (RootObject)serializer.ReadObject(memoryStream);
 
-            //vracamo podatke tipa rootobject
+            //returning data in type of rootobject
             return data;
         }
 
-        //dohvaca se vrijeme pomocu naziva grada
+        //gets weather by city name
         public async static Task<RootObject> GetWeatherWithCityName(string city)
         {
             var http = new HttpClient();
@@ -61,10 +60,10 @@ namespace UWPWeatherApp
         }
     }
 
-    // objekti i klase koje sadrzi JSON
+    // objects and classes that JSON contains
 
-    // datacontract opisuje podatke koji se izmjenjuju izmedu klijenta (aplikacije) i servisa koji ne dijele iste tipove podataka
-    [DataContract] //zajedno s datamember je potrebno za serilizaciju i deserilizaciju tj. u i iz JSON formata 
+    // datacontract describes data which are excanged between client and service which dont share same types of data
+    [DataContract] //with datamember its needed for serilization and deserilization 
     public class Main : INotifyPropertyChanged
     {
         [DataMember]
@@ -182,18 +181,6 @@ namespace UWPWeatherApp
         public string pod { get; set; }
     }
 
-    /* nije ispravno
-    public class Rain
-    {
-        public double __invalid_name__3h { get; set; }
-    }
-
-    public class Snow
-    {
-        public double __invalid_name__3h { get; set; }
-    }
-    */
-
     [DataContract]
     public class List : INotifyPropertyChanged
     {
@@ -250,12 +237,7 @@ namespace UWPWeatherApp
             }
         }
 
-        /* klase nisu ispravne
-         public Rain rain { get; set; }
-         public Snow snow { get; set; }
-         */
-
-        //ovo je za weather i main podklase
+        //this is for weather and main podclasses
         private void AddressChanged(object sender, PropertyChangedEventArgs args)
         {
             NotifyPropertyChanged("main");
@@ -340,7 +322,7 @@ namespace UWPWeatherApp
             set
             {
                 _list = value;
-                //dohvacamo podatke unutar liste samo one koji ce se ispisati
+                //getting data which will be printed inside of the list
                 for (int i = 0; i < 17; i += 4)
                 {
                     _list[i].PropertyChanged += AddressChanged;
@@ -362,7 +344,7 @@ namespace UWPWeatherApp
                 NotifyPropertyChanged("city");
             }
         }
-        //ovo je za pristup podklasama city i list
+        //this is for city and list podclasses
         private void AddressChanged(object sender, PropertyChangedEventArgs args)
         {
             NotifyPropertyChanged("city");
