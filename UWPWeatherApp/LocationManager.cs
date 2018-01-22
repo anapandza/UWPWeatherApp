@@ -7,7 +7,7 @@ using Windows.Devices.Geolocation;
 
 namespace UWPWeatherApp
 {
-    //klasa koja dohvaca lokaciju uredaja na kojem je pokrenuta lokacija ako uredaj to dopusti i vraca geoposition klasu koja sadrzi koordinate trenutne lokacije 
+    //klasa gets location of device and if device lets it returns geoposition class which contains current coordinates 
     public class LocationManager
     {
         public async static Task<Geoposition> GetPosition()
