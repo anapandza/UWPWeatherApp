@@ -41,9 +41,8 @@ namespace UWPWeatherApp
                 var longitude = Convert.ToDouble(Longitude.Text);
 
                 RootObject temp = await WeatherAPI.GetWeatherWithCoordinates(latitude, longitude);
-                //binding za sve varijable
-                this.Weather.city = temp.city; //binding klasu city za dohvacanje imena unutar te klase
-                this.Weather.list = temp.list; //binding liste za pristup podacima unutar liste
+                this.Weather.city = temp.city; 
+                this.Weather.list = temp.list; 
 
                 for (int i = 0; i < 17; i += 4)
                 {
